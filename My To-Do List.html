@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: linear-gradient(to right, #ff2e35, #b6ff62);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 320px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    input {
+      border: 2px solid #ffc1cc;
+    }
+    button {
+      background: #ff6f91;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      overflow-y: auto;
+      max-height: 180px;
+    }
+    li {
+      background: #dfa1a1;
+      margin: 6px 0;
+      padding: 8px;
+      border-radius: 10px;
+      color: #d1495b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    li.done span {
+      text-decoration: line-through;
+      color: #999;
+    }
+    .del {
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: #ff2e35;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h3>📝 To-Do List</h3>
+    <input id="task" placeholder="Add task..." />
+    <button onclick="add()">Add</button>
+    <ul id="list"></ul>
+  </div>
+
+  <script>
+    const list = document.getElementById("list");
+    const task = document.getElementById("task");
+
+    function add() {
+      const text = task.value.trim();
+      if (!text) return;
+      const li = document.createElement("li");
+      const span = document.createElement("span");
+      span.textContent = text;
+      span.onclick = () => li.classList.toggle("done");
+      const del = document.createElement("button");
+      del.textContent = "❌";
+      del.className = "del";
+      del.onclick = () => li.remove();
+      li.append(span, del);
+      list.appendChild(li);
+      task.value = "";
+    }
+
+    task.addEventListener("keypress", e => {
+      if (e.key === "Enter") add();
+    });
+  </script>
+</body>
+</html>
